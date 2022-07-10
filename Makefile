@@ -25,7 +25,7 @@ libsearch.a: src/search.cpp
 	rm search.o
 
 search.lib: src/search.cpp
-	clang-cl /std:c++17 /c /EHsc /MD src\search.cpp
+	clang-cl /std:c++17 /c /EHsc src\search.cpp
 	llvm-lib search.obj
 	rm search.obj
 
