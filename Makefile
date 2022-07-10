@@ -25,7 +25,7 @@ libsearch.a: src/search.cpp
 	rm search.o
 
 libsearch.lib: src/search.cpp
-	cl /c /EHsc src\search.cpp
+	cl /std:c++17 /c /EHsc src\search.cpp
 	lib search.obj
 	rm search.obj
 
