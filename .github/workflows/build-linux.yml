@@ -1,0 +1,30 @@
+name: "Build for Linux"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+    inputs:
+      upload_installer:
+        description: 'Upload installer artifact? [true, false]'
+        required: false
+        default: 'false'
+
+jobs:
+  build:
+    name: 'Linux build'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
