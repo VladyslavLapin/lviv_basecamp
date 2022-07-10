@@ -65,7 +65,7 @@ bool find(const std::string& name)
 
                 std::packaged_task<bool(const std::string&, const std::string&)> task(thread_function);
                 v.push_back(task.get_future());
-                std::thread t(std::move(task), dir_entry.path(), name);
+                std::thread t(std::move(task), dir_entry.path().string(), name);
                 t.join();
                 thread_count++;
             }
