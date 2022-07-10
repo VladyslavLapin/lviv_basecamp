@@ -14,7 +14,7 @@ endif
 ifeq ($(detected_OS), Windows)
 exe: main_windows
 
-lib_name := libsearch.lib
+lib_name := search.lib
 endif
 
 lib: $(lib_name)
@@ -24,7 +24,7 @@ libsearch.a: src/search.cpp
 	ar rvs libsearch.a search.o
 	rm search.o
 
-libsearch.lib: src/search.cpp
+search.lib: src/search.cpp
 	clang-cl /std:c++17 /c /EHsc /MD src\search.cpp
 	llvm-lib search.obj
 	rm search.obj
