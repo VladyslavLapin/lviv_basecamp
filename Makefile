@@ -9,12 +9,16 @@ ifeq ($(detected_OS), Linux)
 exe: main_linux
 
 lib_name := libsearch.a
+remove_command := rm
+file_name := Searcher
 endif
 
 ifeq ($(detected_OS), Windows)
 exe: main_windows
 
 lib_name := search.lib
+remove_command := del
+file_name := Searcher.exe
 endif
 
 lib: $(lib_name)
@@ -22,18 +26,18 @@ lib: $(lib_name)
 libsearch.a: src/search.cpp
 	g++ -std=c++17 -pthread -c src/search.cpp  
 	ar rvs libsearch.a search.o
-	rm search.o
+	${remove_command} search.o
 
 search.lib: src/search.cpp
 	clang-cl /std:c++17 /c /EHsc src\search.cpp
 	llvm-lib search.obj
-	rm search.obj
+	${remove_command} search.obj
 
 main_linux: main.cpp search.h lib  
-	g++ -std=c++17 -pthread -o Searcher main.cpp $(lib_name)
+	g++ -std=c++17 -pthread -o ${file_name} main.cpp $(lib_name)
 
 main_windows: main.cpp search.h lib
-	clang-cl /FeSearcher /EHsc main.cpp /link ${lib_name}
+	clang-cl /Fe${file_name} /EHsc main.cpp /link ${lib_name}
 
 clean: 
-	rm Searcher
+	${remove_command} ${file_name}
