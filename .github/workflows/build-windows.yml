@@ -1,0 +1,34 @@
+name: "Build for Windows"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  release:
+    types: [ published ]
+
+  workflow_dispatch:
+    inputs:
+      upload_installer:
+        description: 'Upload installer artifact? [true, false]'
+        required: false
+        default: 'false'
+
+jobs:
+  build:
+    name: 'Windows build'
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: 'Build'
+        run: make
+      
+      - name: 'Upload installer'
+        if: ${{ github.event.inputs.upload_installer == 'true' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'Searcher.exe'
+          path: ${{ github.workspace }}\Searcher.exe
