@@ -22,7 +22,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Add clang path to $PATH env
+        run: echo "PATH=$PATH:C:\msys64\mingw64\bin" >> $GITHUB_ENV
       
       - name: 'Build'
         run: make

@@ -25,15 +25,15 @@ libsearch.a: src/search.cpp
 	rm search.o
 
 libsearch.lib: src/search.cpp
-	cl /std:c++17 /c /EHsc src\search.cpp
-	lib search.obj
+	clang-cl /std:c++17 /c /EHsc /MD src\search.cpp
+	llvm-lib search.obj
 	rm search.obj
 
 main_linux: main.cpp search.h lib  
 	g++ -std=c++17 -pthread -o Searcher main.cpp $(lib_name)
 
 main_windows: main.cpp search.h lib
-	cl /EHsc main.cpp /link ${lib_name} /Fe Searcher
+	clang-cl /FeSearcher /EHsc main.cpp /link ${lib_name}
 
 clean: 
 	rm Searcher
