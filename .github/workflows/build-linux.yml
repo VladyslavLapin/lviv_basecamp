@@ -12,8 +12,8 @@ on:
     inputs:
       upload_installer:
         description: 'Upload installer artifact? [true, false]'
-        required: true
-        default: 'true'
+        required: false
+        default: 'false'
 
 jobs:
   build:
@@ -26,13 +26,9 @@ jobs:
       - name: 'Build'
         run: make
       
-      - name: 'Pack installer'
-        run: zip Searcher.zip Searcher && ls
-      
       - name: 'Upload installer'
-        # if: ${{ github.event.inputs.upload_installer == 'true' }}
+        if: ${{ github.event.inputs.upload_installer == 'true' }}
         uses: actions/upload-artifact@v3
         with:
-          name: 'Searcher.zip'
-          path: ${{ github.workspace }}/Searcher.zip
-
+          name: 'Searcher'
+          path: ${{ github.workspace }}/Searcher
