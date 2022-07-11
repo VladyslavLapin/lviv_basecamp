@@ -31,21 +31,21 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -yq cmake
 
       - name: 'Configure cmake for project'
-        run: cmake -B build
+        run: cmake -B ./build/linux -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
       
       - name: 'Build'
-        run: cmake --build ./build
+        run: cmake --build ./build/linux --config Release
       
       - name: 'Upload installer'
         if: ${{ github.event.inputs.upload_installer == 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: 'Searcher'
-          path: ${{ github.workspace }}/build/Searcher
+          path: ${{ github.workspace }}/build/linux/Searcher
       
       - name: 'Upload library'
         if: ${{ github.event.inputs.upload_library == 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: 'libsearch'
-          path: ${{ github.workspace }}/build/libsearch.a
+          path: ${{ github.workspace }}/build/linux/libsearch.a
