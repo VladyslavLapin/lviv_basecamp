@@ -23,12 +23,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: 'Configure cmake'
+        run: cmake -B build
+      
       - name: 'Build'
-        run: make
+        run: cmake --build ./build
       
       - name: 'Upload installer'
         if: ${{ github.event.inputs.upload_installer == 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: 'Searcher'
-          path: ${{ github.workspace }}/Searcher
+          path: ${{ github.workspace }}/build/Searcher
