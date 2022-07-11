@@ -29,21 +29,21 @@ jobs:
       - uses: lukka/get-cmake@latest
       
       - name: 'Configure cmake for project'
-        run: cmake -B build
+        run: cmake -B ./build/windows -G "Visual Studio 16 2019" -DCMAKE_GENERATOR_PLATFORM=x64 -DCMAKE_BUILD_TYPE=Release
       
       - name: 'Build'
-        run: cmake --build .\build
+        run: cmake --build ./build/windows --config Release
       
       - name: 'Upload installer'
         if: ${{ github.event.inputs.upload_installer == 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: 'Searcher'
-          path: ${{ github.workspace }}\build\Debug\Searcher.exe
+          path: ${{ github.workspace }}/build/windows/Release/Searcher.exe
       
       - name: 'Upload library'
         if: ${{ github.event.inputs.upload_library == 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: 'libsearch'
-          path: ${{ github.workspace }}\build\Debug\search.lib
+          path: ${{ github.workspace }}/build/windows/Release/search.lib
