@@ -14,6 +14,10 @@ on:
         description: 'Upload installer artifact? [true, false]'
         required: false
         default: 'false'
+      upload_library:
+        description: 'Upload library artifact? [true, false]'
+        required: false
+        default: 'false'
 
 jobs:
   build:
@@ -23,12 +27,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: 'Install cmake'
+        run: sudo apt-get update && sudo apt-get install -yq cmake
+
+      - name: 'Configure cmake for project'
+        run: cmake -B build
+      
       - name: 'Build'
-        run: make
+        run: cmake --build ./build
       
       - name: 'Upload installer'
         if: ${{ github.event.inputs.upload_installer == 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: 'Searcher'
-          path: ${{ github.workspace }}/Searcher
+          path: ${{ github.workspace }}/build/Searcher
+      
+      - name: 'Upload library'
+        if: ${{ github.event.inputs.upload_library == 'true' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'libsearch'
+          path: ${{ github.workspace }}/build/libsearch.a
