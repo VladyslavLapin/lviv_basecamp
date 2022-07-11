@@ -22,16 +22,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Add clang path to $PATH env
-        run: echo "PATH=$PATH:C:\msys64\mingw64\bin" >> $GITHUB_ENV
+      - uses: lukka/get-cmake@latest
+      
+      - name: 'Configure cmake for project'
+        run: cmake -B build
       
       - name: 'Build'
-        run: make
+        run: cmake --build .\build
       
       - name: 'Upload installer'
         if: ${{ github.event.inputs.upload_installer == 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: 'Searcher.exe'
-          path: ${{ github.workspace }}\Searcher.exe
+          path: ${{ github.workspace }}\build\Debug\Searcher.exe
