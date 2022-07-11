@@ -14,6 +14,10 @@ on:
         description: 'Upload installer artifact? [true, false]'
         required: false
         default: 'false'
+      upload_library:
+        description: 'Upload library artifact? [true, false]'
+        required: false
+        default: 'false'
 
 jobs:
   build:
@@ -34,5 +38,12 @@ jobs:
         if: ${{ github.event.inputs.upload_installer == 'true' }}
         uses: actions/upload-artifact@v3
         with:
-          name: 'Searcher.exe'
+          name: 'Searcher'
           path: ${{ github.workspace }}\build\Debug\Searcher.exe
+      
+      - name: 'Upload library'
+        if: ${{ github.event.inputs.upload_library == 'true' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'libsearch'
+          path: ${{ github.workspace }}\build\Debug\search.lib
