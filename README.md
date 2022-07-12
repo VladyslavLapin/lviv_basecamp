@@ -1,4 +1,13 @@
-# Version 1.0 of search system program
+## Version 1.1.1 of search system program
+
+- Added settings for program (help, searching path, file to be found)
+
+## Version 1.1.0 of search system program
+
+- It is working with Windows
+- Moved to cmake
+
+## Version 1.0.0 of search system program
 
 - Make program of searching in root linux directory 
 (If you want to switch searching path, you can change it in "search.cpp")
