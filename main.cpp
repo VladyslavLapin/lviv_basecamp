@@ -19,7 +19,7 @@ int main(int argc, const char* argv[])
     }
 
     if (settings.file.has_value()) {
-        if (!find(settings.file.value(), settings.path.value_or(std::filesystem::current_path().root_path()))) {
+        if (!find(settings.file.value(), settings.path.value_or(std::filesystem::current_path().root_path().string()))) {
             std::cerr << "File is not found!" << std::endl;
         }
     } else {
