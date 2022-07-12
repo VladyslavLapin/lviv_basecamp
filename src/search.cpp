@@ -8,7 +8,6 @@
 #include "search.h"
 
 std::atomic<bool> is_done;
-const auto root = std::filesystem::current_path().root_path();
 const int max_thread_count = 8;
 
 bool thread_function(const std::string& path, const std::string& name)
@@ -28,7 +27,7 @@ bool thread_function(const std::string& path, const std::string& name)
     return false; 
 }
 
-bool find(const std::string& name)
+bool find(const std::string& name, const std::string& root)
 {
     int thread_count = 0;
     std::vector<std::future<bool>> v;

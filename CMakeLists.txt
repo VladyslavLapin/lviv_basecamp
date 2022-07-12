@@ -10,11 +10,10 @@ find_package(Threads REQUIRED)
 add_library(search)
 target_sources(search PUBLIC ${CMAKE_SOURCE_DIR}/src/search.cpp)
 
-add_executable(Searcher main.cpp)
+add_executable(Searcher main.cpp ${CMAKE_SOURCE_DIR}/src/SearchSettings.cpp)
 
 target_link_libraries(Searcher PUBLIC Threads::Threads search)
 target_include_directories(Searcher PUBLIC
                           "${PROJECT_BINARY_DIR}"
                           "include/"
-                          "${CMAKE_SOURCE_DIR}/lib"
                           )
